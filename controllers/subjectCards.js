@@ -6,12 +6,50 @@ function create(req, res) {
   .then(subjectCard => {
     SubjectCard.findById(subjectCard._id)
     .populate('owner')
-    
+    .then(populatedSubjectCard => {
+      res.json(populatedSubjectCard)
+    })
   })
-
-
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
 }
+
+function index(req,res) {
+  SubjectCard.find({})
+  .populate('owner')
+  .then(subjectCards => {
+    res.json(subjectCards)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
+function update(req, res) {
+  SubjectCard.findById(req.params.id)
+  .then(subjectCard => {
+    if (subjectCard.owner._id.equals(req.user.profile)) {
+      SubjectCard.findByIdAndUpdate(req.params.id, req.body, {new: true})
+      .populate('owner')
+      .then(updatedSubjectCard => {
+        res.json(updatedSubjectCard)
+      })
+    } else {
+      res.status(401).json({err: "Not authorized!"})
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
 
 export {
   create,
+  index,
+  update,
 }
