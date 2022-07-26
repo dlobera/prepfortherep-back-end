@@ -5,10 +5,11 @@ import { decodeUserFromToken, checkAuth } from '../middleware/auth.js'
 const router = Router()
 
 /*---------- Public Routes ----------*/
-// router.get('/', subjectCardsCtrl.index)
 
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
+router.get('/', checkAuth, subjectCardsCtrl.index)
 router.post('/', checkAuth, subjectCardsCtrl.create)
+router.put('/:id', checkAuth, subjectCardsCtrl.update)
 export { router }
