@@ -6,11 +6,16 @@ function create(req, res) {
   .then(subjectCard => {
     SubjectCard.findById(subjectCard._id)
     .populate('owner')
-    
+    .then(populatedSubjectCard => {
+      res.json(populatedSubjectCard)
+    })
   })
-
-
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
 }
+
 
 export {
   create,
