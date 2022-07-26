@@ -47,9 +47,28 @@ function update(req, res) {
   })
 }
 
+function deleteCard(req, res) {
+  SubjectCard.findById(req.params.id)
+  .then(subjectCard => {
+    if (subjectCard.owner._id.equals(req.user.profile)) {
+      SubjectCard.findByIdAndDelete(subjectCard._id)
+      .then((deletedSubjectCard) => {
+        res.json(deletedSubjectCard)
+      })
+    } else {
+      res.status(401).json({err: "Not authorized!"})
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
 
 export {
   create,
   index,
   update,
+  deleteCard as delete,
 }
