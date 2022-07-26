@@ -11,7 +11,7 @@ const termSchema = new Schema({
 })
 
 const subjectCardSchema = new mongoose.Schema({
-  _id: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
+  owner: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
   title: String,
   term: [termSchema]
 },{
