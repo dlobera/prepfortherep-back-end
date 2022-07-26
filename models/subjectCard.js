@@ -1,4 +1,6 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
+
+const Schema = mongoose.Schema
 
 const termSchema = new Schema({
   term: String,
@@ -9,14 +11,14 @@ const termSchema = new Schema({
 })
 
 const subjectCardSchema = new mongoose.Schema({
-  _id: ObjectId,
+  _id: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
   title: String,
   term: [termSchema]
 },{
   timestamps: true,
 })
 
-const Profile = mongoose.model('Profile', profileSchema)
+const SubjectCard = mongoose.model('SubjectCard', subjectCardSchema)
 
-export { Profile }
+export { SubjectCard }
 
