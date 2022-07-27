@@ -2,18 +2,21 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const termSchema = new Schema({
-  term: String,
-  definition: String,
+// const termSchema = new Schema({
+//   term: String,
+//   definition: String,
   
-}, {
-  timestamps: true
-})
+// }, {
+//   timestamps: true
+// })
 
 const subjectCardSchema = new mongoose.Schema({
   owner: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
   title: String,
-  term: [termSchema]
+  term: [String],
+  definiton: [String],
+  mastered: Boolean
+
 },{
   timestamps: true,
 })
