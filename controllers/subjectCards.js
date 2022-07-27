@@ -46,10 +46,35 @@ function update(req, res) {
     res.status(500).json({err: err.errmsg})
   })
 }
+function createTerm(req, res) {
+  console.log(req.body)
+  console.log(req.user)
+  req.body.owner = req.user.profile
+  SubjectCard.findById(req.params.id)
+  .then(term => {
+    term.terms.push(req.body)
+    term.save()
+    .then(cTerm => {
+      cTerm.populate([
+        {path:"terms",
+          populate: {path:"owner"}}
+      ])
+      .then(pTerm => {
+        res.json(pTerm)
+      })
+    })
+
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
 
 
 export {
   create,
   index,
   update,
+  createTerm
 }
