@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const termSchema = new Schema({
   term: String,
   definition: String,
-  mastered: Boolean,
+  
 }, {
   timestamps: true
 })
