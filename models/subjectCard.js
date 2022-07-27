@@ -13,9 +13,9 @@ const Schema = mongoose.Schema
 const subjectCardSchema = new mongoose.Schema({
   owner: {type: mongoose.Schema.Types.ObjectId, ref: "Profile"},
   title: String,
-  term: [String],
-  definiton: [String],
-  mastered: Boolean
+  term: String,
+  definition: String,
+  m: Boolean
 
 },{
   timestamps: true,
