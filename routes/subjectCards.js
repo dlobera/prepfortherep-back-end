@@ -13,4 +13,5 @@ router.get('/', checkAuth, subjectCardsCtrl.index)
 router.post('/', checkAuth, subjectCardsCtrl.create)
 router.post("/:id/terms", checkAuth, subjectCardsCtrl.createTerm)
 router.put('/:id', checkAuth, subjectCardsCtrl.update)
+router.delete('/:id', checkAuth, subjectCardsCtrl.delete)
 export { router }
